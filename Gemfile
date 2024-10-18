@@ -22,7 +22,7 @@ group :test do
   gem "webrick"
 
   gem "simplecov", require: false # Test coverage generator. Go to /coverage/ after running tests
-  gem "simplecov-cobertura"
+  gem "simplecov-cobertura", require: false
   gem "cucumber-rails", require: false
   gem "cucumber"
   gem "database_cleaner"
@@ -42,8 +42,7 @@ group :release do
   gem "octokit"
 end
 
-group :lint do
-  # Code style
+group :rubocop do
   gem "rubocop"
   gem "rubocop-packaging"
   gem "rubocop-rspec"
