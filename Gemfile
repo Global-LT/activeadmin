@@ -10,10 +10,12 @@ group :development, :test do
   gem "draper"
   gem "devise"
 
-  gem "rails", "~> 7.0.0"
+  gem "rails", "~> 7.2.0"
 
   gem "sprockets-rails"
   gem "sassc-rails"
+  gem "ransack", ">= 4.2.0"
+  gem "formtastic", ">= 5.0.0"
 end
 
 group :test do
@@ -22,10 +24,10 @@ group :test do
   gem "webrick"
 
   gem "simplecov", require: false # Test coverage generator. Go to /coverage/ after running tests
-  gem "simplecov-cobertura"
+  gem "simplecov-cobertura", require: false
   gem "cucumber-rails", require: false
   gem "cucumber"
-  gem "database_cleaner"
+  gem "database_cleaner-active_record"
   gem "launchy"
   gem "parallel_tests"
   gem "rspec-rails"
@@ -42,8 +44,7 @@ group :release do
   gem "octokit"
 end
 
-group :lint do
-  # Code style
+group :rubocop do
   gem "rubocop"
   gem "rubocop-packaging"
   gem "rubocop-rspec"

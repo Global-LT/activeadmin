@@ -1,6 +1,6 @@
 {
   "name": "@activeadmin/activeadmin",
-  "version": "2.13.1",
+  "version": "3.2.5",
   "description": "The administration framework for Ruby on Rails.",
   "main": "app/assets/javascripts/active_admin/base.js",
   "type": "module",
@@ -24,13 +24,13 @@
   },
   "homepage": "htts://activeadmin.info",
   "devDependencies": {
-    "@babel/core": "",
-    "@babel/preset-env": "",
+    "@babel/core": "*",
+    "@babel/preset-env": "*",
     "common-tags": "",
-    "eslint": "",
-    "eslint-plugin-import": "",
+    "eslint": "*",
+    "eslint-plugin-import": "*",
     "gherkin-lint": "",
-    "rollup": "",
+    "rollup": "*",
     "rollup-plugin-babel": "",
     "rollup-plugin-commonjs": "",
     "rollup-plugin-node-resolve": "",
@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "jquery": "^3.4.1",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui": "^1.13.3",
     "jquery-ujs": "^1.2.2"
   }
 }

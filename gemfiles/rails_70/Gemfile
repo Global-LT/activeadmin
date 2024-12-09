@@ -6,18 +6,14 @@ group :development, :test do
 
   gem "cancancan"
   gem "pundit"
-  gem "jruby-openssl", platform: :jruby
 
   gem "draper"
   gem "devise"
 
-  gem "rails", "~> 6.1.0"
-  gem "activerecord-jdbcsqlite3-adapter", platform: :jruby
+  gem "rails", "~> 7.0.0"
 
   gem "sprockets-rails"
   gem "sassc-rails"
-
-  gem "turbolinks"
 end
 
 group :test do
@@ -26,14 +22,14 @@ group :test do
   gem "webrick"
 
   gem "simplecov", require: false # Test coverage generator. Go to /coverage/ after running tests
-  gem "simplecov-cobertura"
+  gem "simplecov-cobertura", require: false
   gem "cucumber-rails", require: false
   gem "cucumber"
-  gem "database_cleaner"
+  gem "database_cleaner-active_record"
   gem "launchy"
   gem "parallel_tests"
   gem "rspec-rails"
-  gem "sqlite3", platform: :mri
+  gem "sqlite3", "~> 1.7", platform: :mri
 
   # Translations
   gem "i18n-tasks"

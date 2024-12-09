@@ -192,12 +192,12 @@ RSpec.describe ActiveAdmin::ViewHelpers::DisplayHelper do
       expect(value).to eq "right"
     end
 
-    it "auto-links ActiveRecord records by association" do
-      post = Post.create! author: User.new
+    it "auto-links ActiveRecord records by association with display name fallback" do
+      post = Post.create! author: User.new(first_name: "", last_name: "")
 
       value = view.format_attribute post, :author
 
-      expect(value).to match /<a href="\/admin\/users\/\d+"> <\/a>/
+      expect(value).to match /<a href="\/admin\/users\/\d+">User \#\d+<\/a>/
     end
 
     it "auto-links ActiveRecord records & uses a display_name method" do
@@ -208,14 +208,28 @@ RSpec.describe ActiveAdmin::ViewHelpers::DisplayHelper do
       expect(value).to match /<a href="\/admin\/users\/\d+">A B<\/a>/
     end
 
-    pending "auto-links Mongoid records"
-
     it "calls status_tag for boolean values" do
       post = Post.new starred: true
 
       value = view.format_attribute post, :starred
 
       expect(value.to_s).to eq "<span class=\"status_tag yes\">Yes</span>\n"
+    end
+
+    context "with non-database boolean attribute" do
+      let(:model_class) do
+        Class.new(Post) do
+          attribute :a_virtual_attribute, :boolean
+        end
+      end
+
+      it "calls status_tag even when attribute is nil" do
+        post = model_class.new a_virtual_attribute: nil
+
+        value = view.format_attribute post, :a_virtual_attribute
+
+        expect(value.to_s).to eq "<span class=\"status_tag unset no\">No</span>\n"
+      end
     end
 
     it "calls status_tag for boolean non-database values" do

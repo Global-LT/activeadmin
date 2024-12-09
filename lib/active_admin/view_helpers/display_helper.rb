@@ -24,7 +24,14 @@ module ActiveAdmin
       # Attempts to call any known display name methods on the resource.
       # See the setting in `application.rb` for the list of methods and their priority.
       def display_name(resource)
-        ERB::Util.html_escape(render_in_context(resource, display_name_method_for(resource))) unless resource.nil?
+        unless resource.nil?
+          result = render_in_context(resource, display_name_method_for(resource))
+          if result.to_s&.strip&.present?
+            ERB::Util.html_escape(result)
+          else
+            ERB::Util.html_escape(render_in_context(resource, DISPLAY_NAME_FALLBACK))
+          end
+        end
       end
 
       # Looks up and caches the first available display name method.
@@ -103,8 +110,8 @@ module ActiveAdmin
         when TrueClass, FalseClass
           true
         else
-          if resource.class.respond_to? :columns_hash
-            column = resource.class.columns_hash[attr.to_s] and column.type == :boolean
+          if resource.class.respond_to? :attribute_types
+            resource.class.attribute_types[attr.to_s].is_a?(ActiveModel::Type::Boolean)
           end
         end
       end

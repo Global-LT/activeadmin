@@ -12,7 +12,7 @@ module ActiveAdmin
         ActiveAdmin.application.stylesheets.each do |path, _|
           app.config.assets.precompile << path
         end
-        ActiveAdmin.application.javascripts.each do |path|
+        ActiveAdmin.application.javascripts.each do |path, _|
           app.config.assets.precompile << path
         end
       end
@@ -20,6 +20,10 @@ module ActiveAdmin
 
     initializer "active_admin.routes" do
       require "active_admin/helpers/routes/url_helpers"
+    end
+
+    initializer "active_admin.deprecator" do |app|
+      app.deprecators[:activeadmin] = ActiveAdmin.deprecator if app.respond_to?(:deprecators)
     end
   end
 end

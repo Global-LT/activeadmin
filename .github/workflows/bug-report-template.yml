@@ -2,7 +2,7 @@ name: Bug Reports
 
 on:
   schedule:
-    # Run every day at noon
+    # Run every day at noon UTC
     - cron: '0 12 * * *'
   pull_request:
     # If updating `paths` then update bug-report-template-none.yml to match
@@ -10,8 +10,12 @@ on:
       - '.github/workflows/bug-report-template.yml'
       - 'tasks/bug_report_template.rb'
 
+concurrency:
+  group: ${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 env:
-  RUBY_VERSION: ruby-3.2
+  RUBY_VERSION: ruby-3.3
 
 jobs:
   bug_report_template_test:
@@ -20,7 +24,7 @@ jobs:
     if: ${{ github.event_name == 'pull_request' || github.repository_owner == 'activeadmin' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
